@@ -28,7 +28,14 @@ import android.preference.PreferenceActivity;
  */
 public final class Preferences extends PreferenceActivity {
 	/** Preference key: enabled. */
-	static final String PREFS_ENABLED = "enable_example";
+	static final String PREFS_ENABLED = "enable_poslatsmscz";
+	/** Preference's name: user's api key. */
+	static final String PREFS_APIKEY = "username_poslatsmscz";
+	/** Preference's name: hide api status. */
+	static final String PREFS_HIDE_APISTATUS = "hide_apistatus";
+		
+	static final String PREFS_USER = "connector_user_poslatsmscz";
+	static final String PREFS_PASSWORD = "connector_password_poslatsmscz";
 
 	/**
 	 * {@inheritDoc}
