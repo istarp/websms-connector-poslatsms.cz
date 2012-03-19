@@ -17,13 +17,20 @@
                 not, see <http://www.gnu.org/licenses/>. 
         --> 
 <resources>
-	<string name="app_name">WebSMS Connector: poslat.sms</string>
+	<string name="app_name">WebSMS Connector: poslatsms.cz</string>
 	<string name="app_version">1.0</string>
 	<string name="connector_poslatsmscz_author">Petr Svobodnik &lt;svobodnik.petr@gmail.com&gt;</string>
 	<string name="connector_poslatsmscz_name">poslatsms.cz</string>
+	<string name="connector_poslatsmscz_username">Login</string>
+	<string name="connector_poslatsmscz_password">Heslo</string>
 	<string name="connector_poslatsmscz_preferences">Nastavení - poslatsms.cz</string>
-	<string name="enable_poslatsmscz">Povolit poslatsms.cz</string>
-	<string name="apikey_">API Key</string>
-	<string name="apikey_hint">Your API Key</string>
-	<string name="hide_api_status_">Hide API status</string>
+	<string name="connector_poslatsmscz_enable">Povolit poslatsms.cz</string>	
+	<string name="error_length">Chyba: Zpráva nesmí obsahovat více než %1$d znaků.</string>	
+	<string name="error_sms_expired">Chyba: SMS vypršely pro dnešní den.</string>
+	<string name="error_no_session_input_value_found">Chyba: Nenalezeno ID session.</string>
+	
+	<string name="error_sms_sending_result">Chyba: Neočekávaná odpověď od serveru</string>
+	<string name="error_sms_page_result">Chyba: Nepodařilo se načíst stránku</string>	
+	<string name="error_user_not_find_hint">Chyba: Špatné přihlašovací údaje</string>
+	<string name="error_user_not_find">Chyba: Špatné přihlašovací údaje. Zkontrolujete nastavení rozhraní.</string>	
 </resources>

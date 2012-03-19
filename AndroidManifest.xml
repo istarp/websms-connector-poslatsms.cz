@@ -4,11 +4,69 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk
+        android:minSdkVersion="3"
+        android:targetSdkVersion="13" />
 
+    
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+       />
+    
     <application
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" > 
+
+    <activity
+        android:name="de.ub0r.android.websms.connector.common.InfoActivity"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.INFO" />
+        </intent-filter>
+    </activity>
+
+    <!-- Service doing all the IO. -->
+    <service
+        android:name="de.ub0r.android.websms.connector.common.ConnectorService"
+        android:exported="false" />
+
+    <activity android:name="Preferences" >
+        <intent-filter>
+            <action android:name="com.istarp.android.websms.poslatsmscz.PREFS" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+    </activity>
+
+    <receiver
+        android:name="com.istarp.android.websms.poslatsmscz.ConnectorPoslatSMSCZ"
+        android:enabled="true"
+        android:exported="true" >
+        <intent-filter>
+            <action android:name="com.istarp.android.websms.poslatsmscz.RUN_SEND" />
+            <action android:name="de.ub0r.android.websms.connector.UPDATE" />
+        </intent-filter>
+    </receiver>
     </application>
+
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <!-- INTERNET needed for sending sms via internet. -->
+    <uses-permission android:name="android.permission.INTERNET" />    
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--
+		WAKE_LOCK needed to make sure, sms are send even if user sends device
+		to sleep.
+    -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

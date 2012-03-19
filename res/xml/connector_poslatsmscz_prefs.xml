@@ -16,20 +16,16 @@
 		copy of the GNU General Public License along with this program; If
 		not, see <http://www.gnu.org/licenses/>.
 	-->
+	
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 	android:title="@string/connector_poslatsmscz_preferences">
-	<CheckBoxPreference android:key="enable_smspilot"
-		android:title="@string/enable_poslatsmscz" />
-	<EditTextPreference android:key="username_smspilot"
-		android:title="@string/apikey_" android:summary="@string/apikey_hint"
-		android:dependency="enable_smspilot" />
-	<CheckBoxPreference android:key="hide_apistatus"
-		android:title="@string/hide_api_status_" android:dependency="enable_smspilot" />
-	<!--<CheckBoxPreference android:key="use_default_sender"
-		android:defaultValue="true" android:title="@string/use_derfault_sender_"
-		android:summary="@string/use_derfault_sender_hint"
-		android:disableDependentsState="true" android:dependency="enable_smspilot" />
-	<EditTextPreference android:key="custom_sender"
-		android:title="@string/custom_sender_" android:dialogTitle="@string/custom_sender_"
-		android:summary="@string/sender_hint" android:dependency="use_default_sender" />-->
-</PreferenceScreen>
+	<CheckBoxPreference android:key="enable_poslatsmscz"
+		android:title="@string/connector_poslatsmscz_enable" />
+	<EditTextPreference android:key="connector_user_poslatsmscz"
+		android:title="@string/connector_poslatsmscz_username" android:dialogTitle="@string/connector_poslatsmscz_username"
+		android:inputType="textEmailAddress" android:dependency="enable_poslatsmscz" />
+	<EditTextPreference android:key="connector_password_poslatsmscz"
+		android:inputType="textPassword" android:title="@string/connector_poslatsmscz_password"
+		android:dialogTitle="@string/connector_poslatsmscz_password" android:dependency="enable_poslatsmscz" />
+</PreferenceScreen>	
+
