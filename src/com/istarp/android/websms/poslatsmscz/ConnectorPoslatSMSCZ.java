@@ -349,15 +349,15 @@ public class ConnectorPoslatSMSCZ extends Connector {
 
 				if (sendResponse == null)
 					throw new WebSMSException(
-							getStringResource(R.string.error_service));
+							getStringResource(R.string.error_sms_sending_result));
 				else {
 					if (sendResponse.response == null)
 						throw new WebSMSException(
-								getStringResource(R.string.error_service));
+								getStringResource(R.string.error_sms_sending_result));
 
 					if (sendResponse.response.result.sendState == "3+")
 						throw new WebSMSException(
-								getStringResource(R.string.error_service));
+								getStringResource(R.string.error_sms_sending_result));
 				}
 
 			}

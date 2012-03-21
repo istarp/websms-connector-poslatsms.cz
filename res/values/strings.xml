@@ -29,7 +29,7 @@
 	<string name="error_sms_expired">Chyba: SMS vypršely pro dnešní den.</string>
 	<string name="error_no_session_input_value_found">Chyba: Nenalezeno ID session.</string>
 	
-	<string name="error_sms_sending_result">Chyba: Neočekávaná odpověď od serveru</string>
+	<string name="error_sms_sending_result">Chyba: Zprávu se nepodařilo odeslat. Zkontrolujte nastavení nebo to zkuste později.</string>
 	<string name="error_sms_page_result">Chyba: Nepodařilo se načíst stránku</string>	
 	<string name="error_user_not_find_hint">Chyba: Špatné přihlašovací údaje</string>
 	<string name="error_user_not_find">Chyba: Špatné přihlašovací údaje. Zkontrolujete nastavení rozhraní.</string>	
