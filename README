@@ -1,6 +1,6 @@
 This is a connector for the WebSMS project [1]. It can be used to send SMS via poslatsms.cz service.
 
-You will need websms-api [2] and gson[3] to compile this code.
+You will need websms-api [2] and gson [3] to compile this code.
 
 [1] http://code.google.com/p/websmsdroid/
 [2] http://github.com/felixb/websms-api/
