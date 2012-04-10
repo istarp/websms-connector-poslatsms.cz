@@ -18,7 +18,7 @@
         --> 
 <resources>
 	<string name="app_name">WebSMS Connector: poslatsms.cz</string>
-	<string name="app_version">1.0</string>
+	<string name="app_version">1.1</string>
 	<string name="connector_poslatsmscz_author">Petr Svobodnik &lt;svobodnik.petr@gmail.com&gt;</string>
 	<string name="connector_poslatsmscz_name">poslatsms.cz</string>
 	<string name="connector_poslatsmscz_username">Login</string>
