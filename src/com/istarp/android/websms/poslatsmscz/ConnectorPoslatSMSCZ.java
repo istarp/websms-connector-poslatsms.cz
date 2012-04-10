@@ -143,7 +143,8 @@ public class ConnectorPoslatSMSCZ extends Connector {
 		else
 			c.setBalance(null);
 
-		c.setCapabilities(ConnectorSpec.CAPABILITIES_UPDATE
+		c.setCapabilities(ConnectorSpec.CAPABILITIES_BOOTSTRAP
+				| ConnectorSpec.CAPABILITIES_UPDATE
 				| ConnectorSpec.CAPABILITIES_SEND
 				| ConnectorSpec.CAPABILITIES_PREFS);
 		c.addSubConnector("poslatsms.cz", name, SubConnectorSpec.FEATURE_NONE);
@@ -161,7 +162,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 		else
 			connectorSpec.setBalance(null);
 
-		if (p.getBoolean(Preferences.PREFS_ENABLED, false))
+		if (p.getBoolean(Preferences.PREFS_ENABLED, false)) {
 			if (getUserName().length() > 0 && getUserPassword().length() > 0) {
 
 				if (user != null)
@@ -171,7 +172,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 												// prihlaseni
 			} else
 				connectorSpec.setStatus(ConnectorSpec.STATUS_ENABLED);
-		else
+		} else
 			connectorSpec.setStatus(ConnectorSpec.STATUS_INACTIVE);
 		return connectorSpec;
 	}
@@ -182,7 +183,10 @@ public class ConnectorPoslatSMSCZ extends Connector {
 
 	private final String getUserName() {
 		final SharedPreferences p = getDefaultSharedPreferences();
-		return p.getString(Preferences.PREFS_USER, null);
+		String s = p.getString(Preferences.PREFS_USER, null);
+		if (s == null)
+			s = "";
+		return s;
 	}
 
 	private final void setUser() {
@@ -191,7 +195,11 @@ public class ConnectorPoslatSMSCZ extends Connector {
 
 	private final String getUserPassword() {
 		final SharedPreferences p = getDefaultSharedPreferences();
-		return p.getString(Preferences.PREFS_PASSWORD, null);
+		String s = p.getString(Preferences.PREFS_PASSWORD, null);
+		if (s == null)
+			s = "";
+		return s;
+
 	}
 
 	private final String getPhonenumber(final Intent intent) {
@@ -236,7 +244,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 			String hash = new BigInteger(1, digest.digest()).toString(16);
 			return hash;
 
-		} catch (NoSuchAlgorithmException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			return null;
 		}
