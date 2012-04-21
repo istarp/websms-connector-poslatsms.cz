@@ -234,7 +234,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 			final String url, final ArrayList<BasicNameValuePair> postData)
 			throws IOException {
 					
-		final HttpOptions options = new HttpOptions();
+		final HttpOptions options = new HttpOptions(ENCODING);
 		options.url = url;
 		HttpEntity entity = options.addFormParameter(postData);		
 		options.postData = entity;
