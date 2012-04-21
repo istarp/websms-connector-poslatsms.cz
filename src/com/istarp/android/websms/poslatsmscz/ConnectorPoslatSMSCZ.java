@@ -31,6 +31,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.message.BasicNameValuePair;
 
+
 import com.google.gson.Gson;
 
 import android.content.Context;
@@ -45,6 +46,7 @@ import de.ub0r.android.websms.connector.common.ConnectorSpec;
 import de.ub0r.android.websms.connector.common.Utils;
 import de.ub0r.android.websms.connector.common.WebSMSException;
 import de.ub0r.android.websms.connector.common.ConnectorSpec.SubConnectorSpec;
+import de.ub0r.android.websms.connector.common.Utils.HttpOptions;
 
 /**
  * Receives commands coming as broadcast from WebSMS.
