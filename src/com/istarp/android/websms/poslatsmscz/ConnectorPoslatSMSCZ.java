@@ -99,6 +99,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 			throw new WebSMSException(
 					getStringResource(R.string.error_connection));
 		else {
+			setUser();
 			if (getUserName().length() > 0 && getUserPassword().length() > 0
 					&& user == null)
 				throw new WebSMSException(
@@ -286,7 +287,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 				return userReponse.user;
 			}
 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			return null;
 			// throw new
 			// WebSMSException(getStringResource(R.string.error_service));
@@ -304,6 +305,9 @@ public class ConnectorPoslatSMSCZ extends Connector {
 					maxSMSLenght));
 
 		final ArrayList<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>();
+		
+		setUser();
+		
 		if (user != null) {
 			nameValuePairs
 					.add(new BasicNameValuePair("username", getUserName()));
