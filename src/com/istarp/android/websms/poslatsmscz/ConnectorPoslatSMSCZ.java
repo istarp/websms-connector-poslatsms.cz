@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 Felix Bechstein
+ * Copyright (C) 2012 Petr Svobodnik, Felix Bechstein
  * 
  * This file is part of WebSMS.
  * 
@@ -18,14 +18,12 @@
  */
 package com.istarp.android.websms.poslatsmscz;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
@@ -231,11 +229,21 @@ public class ConnectorPoslatSMSCZ extends Connector {
 	private final HttpResponse performHttpRequestForStatusLineUtils(
 			final String url, final ArrayList<BasicNameValuePair> postData)
 			throws IOException {
-		return Utils.getHttpClient(url, null, postData, USER_AGENT,
-				REFERER_URL, ENCODING);
+		Utils.HttpOptions o =new Utils.HttpOptions(ENCODING);
+		o.url = url;
+		o.userAgent = USER_AGENT;
+		o.referer = REFERER_URL;
+		o.addFormParameter(postData);
+
+		return Utils.getHttpClient(o);
 	}
 
-	// get pass hash
+	/**
+	 * Get password hash.
+	 * 
+	 * @param pass password
+	 * @param type type
+	 */
 	private String getHashPassword(String pass, String type) {
 		MessageDigest digest;
 		try {
