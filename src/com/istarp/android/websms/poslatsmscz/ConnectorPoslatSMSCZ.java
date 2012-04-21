@@ -243,7 +243,12 @@ public class ConnectorPoslatSMSCZ extends Connector {
 		return Utils.getHttpClient(o);
 	}
 
-	// get pass hash
+	/**
+	 * Get password hash.
+	 * 
+	 * @param pass password
+	 * @param type type
+	 */
 	private String getHashPassword(String pass, String type) {
 		MessageDigest digest;
 		try {
