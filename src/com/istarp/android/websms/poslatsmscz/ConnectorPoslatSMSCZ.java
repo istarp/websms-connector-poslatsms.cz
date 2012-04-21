@@ -33,6 +33,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.message.BasicNameValuePair;
 
+
 import com.google.gson.Gson;
 
 import android.content.Context;
@@ -47,6 +48,7 @@ import de.ub0r.android.websms.connector.common.ConnectorSpec;
 import de.ub0r.android.websms.connector.common.Utils;
 import de.ub0r.android.websms.connector.common.WebSMSException;
 import de.ub0r.android.websms.connector.common.ConnectorSpec.SubConnectorSpec;
+import de.ub0r.android.websms.connector.common.Utils.HttpOptions;
 
 /**
  * Receives commands coming as broadcast from WebSMS.
@@ -231,8 +233,16 @@ public class ConnectorPoslatSMSCZ extends Connector {
 	private final HttpResponse performHttpRequestForStatusLineUtils(
 			final String url, final ArrayList<BasicNameValuePair> postData)
 			throws IOException {
-		return Utils.getHttpClient(url, null, postData, USER_AGENT,
-				REFERER_URL, ENCODING);
+					
+		final HttpOptions options = new HttpOptions();
+		options.url = url;
+		HttpEntity entity = options.addFormParameter(postData);		
+		options.postData = entity;
+		options.userAgent = USER_AGENT;
+		options.referer = REFERER_URL;
+		//options.encoding = ENCODING;
+		
+		return Utils.getHttpClient(options);
 	}
 
 	// get pass hash
