@@ -146,6 +146,8 @@ public class ConnectorPoslatSMSCZ extends Connector {
 		else
 			c.setBalance(null);
 
+		c.setLimitLength(maxSMSLenght);
+		
 		c.setCapabilities(ConnectorSpec.CAPABILITIES_BOOTSTRAP
 				| ConnectorSpec.CAPABILITIES_UPDATE
 				| ConnectorSpec.CAPABILITIES_SEND
