@@ -60,7 +60,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 	InputStream isResponse = null;
 
 	private static Context currentContext;
-	private static int maxSMSLenght = 160;
+	private static int maxSMSLenght = 130;
 
 	private static User user;
 
@@ -313,7 +313,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 
 		phoneNumber = Utils.international2oldformat(phoneNumber);
 
-		if (text.length() > 160)
+		if (text.length() > maxSMSLenght)
 			throw new WebSMSException(getStringResource(R.string.error_length,
 					maxSMSLenght));
 
