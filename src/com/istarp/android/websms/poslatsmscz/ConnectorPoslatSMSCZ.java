@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Petr Svobodnik, Felix Bechstein
+ * Copyright (C) 2010 Felix Bechstein
  * 
  * This file is part of WebSMS.
  * 
@@ -18,12 +18,14 @@
  */
 package com.istarp.android.websms.poslatsmscz;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
@@ -58,7 +60,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 	InputStream isResponse = null;
 
 	private static Context currentContext;
-	private static int maxSMSLenght = 160;
+	private static int maxSMSLenght = 130;
 
 	private static User user;
 
@@ -144,6 +146,8 @@ public class ConnectorPoslatSMSCZ extends Connector {
 		else
 			c.setBalance(null);
 
+		c.setLimitLength(maxSMSLenght);
+		
 		c.setCapabilities(ConnectorSpec.CAPABILITIES_BOOTSTRAP
 				| ConnectorSpec.CAPABILITIES_UPDATE
 				| ConnectorSpec.CAPABILITIES_SEND
@@ -231,6 +235,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 	private final HttpResponse performHttpRequestForStatusLineUtils(
 			final String url, final ArrayList<BasicNameValuePair> postData)
 			throws IOException {
+					
 		Utils.HttpOptions o =new Utils.HttpOptions(ENCODING);
 		o.url = url;
 		o.userAgent = USER_AGENT;
@@ -310,7 +315,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 
 		phoneNumber = Utils.international2oldformat(phoneNumber);
 
-		if (text.length() > 160)
+		if (text.length() > maxSMSLenght)
 			throw new WebSMSException(getStringResource(R.string.error_length,
 					maxSMSLenght));
 
