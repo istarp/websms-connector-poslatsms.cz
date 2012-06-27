@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010 Felix Bechstein
+ * Copyright (C) 2012 Petr Svobodnik,  Felix Bechstein
  * 
  * This file is part of WebSMS.
  * 
@@ -18,14 +18,12 @@
  */
 package com.istarp.android.websms.poslatsmscz;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
@@ -33,22 +31,21 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.message.BasicNameValuePair;
 
-
-import com.google.gson.Gson;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+
+import com.google.gson.Gson;
+
 import de.ub0r.android.websms.connector.common.Connector;
 import de.ub0r.android.websms.connector.common.ConnectorCommand;
 import de.ub0r.android.websms.connector.common.ConnectorSpec;
+import de.ub0r.android.websms.connector.common.ConnectorSpec.SubConnectorSpec;
 import de.ub0r.android.websms.connector.common.Utils;
 import de.ub0r.android.websms.connector.common.WebSMSException;
-import de.ub0r.android.websms.connector.common.ConnectorSpec.SubConnectorSpec;
-import de.ub0r.android.websms.connector.common.Utils.HttpOptions;
 
 /**
  * Receives commands coming as broadcast from WebSMS.
@@ -267,7 +264,10 @@ public class ConnectorPoslatSMSCZ extends Connector {
 
 	}
 
-	// get user from poslatsms.cz
+	/**
+	 * Get user from poslatsms.cz.
+	 * @return {@link User} data
+	 */
 	private final User loadUserInfo() {
 
 		final ArrayList<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>();
@@ -310,7 +310,11 @@ public class ConnectorPoslatSMSCZ extends Connector {
 
 	}
 
-	// send sms
+	/**
+	 * Send the sms.
+	 * @param text text
+	 * @param phoneNumber reciepient
+	 */
 	private final void sendSMS(String text, String phoneNumber) {
 
 		phoneNumber = Utils.international2oldformat(phoneNumber);
@@ -397,7 +401,10 @@ public class ConnectorPoslatSMSCZ extends Connector {
 
 	}
 
-	// check if device is connected to internet
+	/**
+	 * Check if device is connected to internet.
+	 * @return true, if online
+	 */
 	public boolean isOnline() {
 		ConnectivityManager cm = (ConnectivityManager) currentContext
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
