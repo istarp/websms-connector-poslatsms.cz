@@ -57,9 +57,10 @@ public class ConnectorPoslatSMSCZ extends Connector {
 	InputStream isResponse = null;
 
 	private static Context currentContext;
-	private static int maxSMSLenght = 130;
+	private static int maxSMSLenght = 400;
 
 	private static User user;
+	private final static int SPLIT_TEXT_AFTER = 41;
 
 	private final static String SMS_PAGE_URL = "http://j.poslatsms.cz/Send";
 	private static final String SMS_USER_INFO_URL = "http://j.poslatsms.cz/GetUserInfo";
@@ -112,7 +113,46 @@ public class ConnectorPoslatSMSCZ extends Connector {
 		final String phoneNumber = getPhonenumber(intent);
 		final String text = getMessageText(intent);
 
-		sendSMS(text, phoneNumber);
+		if (text.length() > SPLIT_TEXT_AFTER) {
+
+			int numberOfMessages = (text.length() / SPLIT_TEXT_AFTER) + 1;
+			int index = 0;
+
+			boolean split = false;
+
+			String[] message = new String[numberOfMessages];
+			String messageTmp = "";
+
+			// split text
+			for (int i = 0; i < text.length(); i++) {
+				messageTmp += text.charAt(i);
+				if (messageTmp.length() == SPLIT_TEXT_AFTER) {
+					messageTmp += " " + (index + 1) + "/" + numberOfMessages;
+					message[index] = messageTmp;
+					index++;
+					messageTmp = "";
+					split = true;
+				}
+			}
+
+			// send all text
+			for (int i = 0; i < message.length-1; i++) {
+				if (message[i].length() > 0)
+					sendSMS(message[i], phoneNumber);
+			}
+
+			if (split) {
+				messageTmp += " " + (index + 1) + "/" + numberOfMessages;
+			}
+
+			// send rest message
+			if (messageTmp.length() > 0) {
+				sendSMS(messageTmp, phoneNumber);
+			}
+
+		} else {
+			sendSMS(text, phoneNumber);
+		}
 	}
 
 	/**
@@ -144,7 +184,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 			c.setBalance(null);
 
 		c.setLimitLength(maxSMSLenght);
-		
+
 		c.setCapabilities(ConnectorSpec.CAPABILITIES_BOOTSTRAP
 				| ConnectorSpec.CAPABILITIES_UPDATE
 				| ConnectorSpec.CAPABILITIES_SEND
@@ -232,8 +272,8 @@ public class ConnectorPoslatSMSCZ extends Connector {
 	private final HttpResponse performHttpRequestForStatusLineUtils(
 			final String url, final ArrayList<BasicNameValuePair> postData)
 			throws IOException {
-					
-		Utils.HttpOptions o =new Utils.HttpOptions(ENCODING);
+
+		Utils.HttpOptions o = new Utils.HttpOptions(ENCODING);
 		o.url = url;
 		o.userAgent = USER_AGENT;
 		o.referer = REFERER_URL;
@@ -245,8 +285,10 @@ public class ConnectorPoslatSMSCZ extends Connector {
 	/**
 	 * Get password hash.
 	 * 
-	 * @param pass password
-	 * @param type type
+	 * @param pass
+	 *            password
+	 * @param type
+	 *            type
 	 */
 	private String getHashPassword(String pass, String type) {
 		MessageDigest digest;
@@ -266,6 +308,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 
 	/**
 	 * Get user from poslatsms.cz.
+	 * 
 	 * @return {@link User} data
 	 */
 	private final User loadUserInfo() {
@@ -312,8 +355,11 @@ public class ConnectorPoslatSMSCZ extends Connector {
 
 	/**
 	 * Send the sms.
-	 * @param text text
-	 * @param phoneNumber reciepient
+	 * 
+	 * @param text
+	 *            text
+	 * @param phoneNumber
+	 *            reciepient
 	 */
 	private final void sendSMS(String text, String phoneNumber) {
 
@@ -324,9 +370,9 @@ public class ConnectorPoslatSMSCZ extends Connector {
 					maxSMSLenght));
 
 		final ArrayList<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>();
-		
+
 		setUser();
-		
+
 		if (user != null) {
 			nameValuePairs
 					.add(new BasicNameValuePair("username", getUserName()));
@@ -403,6 +449,7 @@ public class ConnectorPoslatSMSCZ extends Connector {
 
 	/**
 	 * Check if device is connected to internet.
+	 * 
 	 * @return true, if online
 	 */
 	public boolean isOnline() {
